@@ -19,9 +19,9 @@
   <body>
 
     <div id="navButton">
-      <a href="#">
+      <button onclick="d.toggleNav();">
         <i class="fas fa-bars fa-2x"></i>
-      </a>
+      </button>
     </div>
 
     <div id="mainContainer">
@@ -35,16 +35,38 @@
         </ul>
       </nav>
 
-      <div class="bodyContainer">
+      <div id="bodyContainer">
 
         <header>
-          <h1>REX-REGEX</h1>
+          <h1>/REX-REGEX/</h1>
           <h2>ou comment devenir le <strong>roi</strong>
           des <em>expressions régulières</em></h2>
         </header>
 
         <article>
-          <h2>introduction</h2>
+          <h3>introduction</h3>
+          <p>Ce petit tutoriel est là pour t'apprendre
+          à utiliser les "<em>expressions régulières</em>"
+          aussi appelées <strong>regex</strong> ou regexp.</p>
+
+          <p>Regex n'est pas un langage en soi
+          <span>(<a href="#">@Lucien</a> avait raison au final)</span>
+          mais une <strong>grammaire</strong>, un ensemble de codes
+          que l'on retrouve dans la pluspart des langages de programmation
+          (<strong>Ruby, Python et Javascript</strong> à minima).</p>
+
+          <p>Dans ces trois langage, la convention veut qu'on écrive
+          les regex entre <strong>slashs</strong> comme ça :</p>
+          <pre>/bonjour/</pre>
+
+          <p>Les regex servent à </p>
+
+          <h4>quelques exemples d'utilisation :</h4>
+          <pre>
+# en Ruby ------------------
+"hello my dear".match(/my/) #retourne true car "my" est dans la string
+""
+          </pre>
           <p></p>
         </article>
 
@@ -53,4 +75,6 @@
     </div>
 
   </body>
+
+  <script type="text/javascript" src="./js/display.js"></script>
 </html>

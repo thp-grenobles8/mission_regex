@@ -4,24 +4,71 @@ html, body {
   margin: 0;
   padding: 0;
   background: #FFFaF5;
+  height:100%;
+  font-family: Calibri, Ubuntu, sans-serif;
+  color: #444;
+}
+
+h1,h2 {
+  text-align: center;
+}
+h2 {
+  font-style: italic;
+}
+h3{
+  border-bottom: 2px dotted #FA7;
+  margin-top: 3em;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+li:before {
+  content: "\01F609";
+  margin: 0 1em;
 }
 
 a {
   text-decoration: none;
   color: #FA7;
   text-shadow: 1px 1px 1px #FA7;
-  box-shadow: 1px 1px 1px #FA7;
 }
 a:hover {
   text-shadow: 2px 2px 3px #FA7;
-  box-shadow: 2px 2px 3px #FA7;
 }
 a:active {
   /* text-shadow: -2px -2px 1px #C95;
   box-shadow: -2px -2px 1px #C95; */
   text-shadow: 0 0 0;
-  box-shadow: 0 0 0;
 }
+
+button {
+  margin: 20px ;
+  border : 3px solid #FA7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height : 2.7em;
+  width : 2.7em;
+  border-radius: 1.4em;
+  background: rgba(255,255,255,0);
+  box-shadow: 1px 1px 1px #FA7;
+  color: #FA7;
+  text-shadow: 1px 1px 1px #FA7;
+}
+button:hover {
+  box-shadow: 2px 2px 3px #fa7;
+  text-shadow: 2px 2px 3px #FA7;
+}
+button:active {
+  box-shadow: 0 0 0;
+  text-shadow: 0 0 0;
+}
+button:focus {
+  outline: none;
+}
+
 
 /* elements */
 #navButton {
@@ -29,20 +76,28 @@ a:active {
   top: 0;
   left: 0;
 }
-#navButton a {
-  margin: 20px ;
-  border : 2px solid #FA7;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height : 2.5em;
-  width : 2.5em;
-  border-radius: 1.3em;
-}
 
 #mainContainer {
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: stretch;
-  
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+#mainNav {
+  padding-top: 1em; /*for button*/
+  padding-right: 1em;
+  background: #EDC;
+  overflow: auto;
+  display: none;
+}
+
+#bodyContainer {
+  flex: 1;
+  background: #EFEAE4;
+  overflow: auto;
+  padding-left: 3em;
+  padding-right: 3em;
 }

@@ -61,158 +61,159 @@
       </nav>
 
       <div id="bodyContainer">
+        <div id="textScroller">
 
-        <header id="top">
-          <h1>/REX-REGEX/</h1>
-          <h2>ou comment devenir le <strong>roi</strong>
-          des <em>expressions régulières</em></h2>
-        </header>
+          <header id="top">
+            <h1>/REX-REGEX/</h1>
+            <h2>ou comment devenir le <strong>roi</strong>
+            des <em>expressions régulières</em></h2>
+          </header>
 
-        <article id="intro">
-          <h3>introduction</h3>
-          <p>Ce petit tutoriel est là pour t'apprendre ou t'entraîner
-          à utiliser les "<em>expressions régulières</em>"
-          aussi appelées <strong>regex</strong> ou regexp.</p>
+          <article id="intro">
+            <h3>introduction</h3>
+            <p>Ce petit tutoriel est là pour t'apprendre ou t'entraîner
+            à utiliser les "<em>expressions régulières</em>"
+            aussi appelées <strong>regex</strong> ou regexp.</p>
 
-          <p><strong>On ne verra que les bases,
-          si tu veux approfondir je te donne des liens
-          dans le menu a gauche</strong></p>
+            <p><strong>On ne verra que les bases,
+            si tu veux approfondir je te donne des liens
+            dans le menu a gauche</strong></p>
 
-          <p>Regex n'est pas un langage en soi
-          <span>(<a href="#">@Lucien</a> avait raison au final)</span>
-          mais une <strong>grammaire</strong>, un ensemble de codes
-          que l'on retrouve dans la pluspart des langages de programmation
-          (<strong>Ruby, Python et Javascript</strong> à minima).</p>
+            <p>Regex n'est pas un langage en soi
+            <span>(<a href="#">@Lucien</a> avait raison au final)</span>
+            mais une <strong>grammaire</strong>, un ensemble de codes
+            que l'on retrouve dans la pluspart des langages de programmation
+            (<strong>Ruby, Python et Javascript</strong> à minima).</p>
 
-          <p>Dans ces trois langage, la convention veut qu'on écrive
-          les regex entre <strong>slashs</strong> comme ça :
-          <code>/bonjour/</code> </p>
-        </article>
+            <p>Dans ces trois langage, la convention veut qu'on écrive
+            les regex entre <strong>slashs</strong> comme ça :
+            <code>/bonjour/</code> </p>
+          </article>
 
-        <article id="exemples">
-          <h3>quelques exemples d'utilisation</h3>
-          <p>Les regex servent à <strong>matcher</strong>
-          une suite précise de caractères dans des string.
-          </p>
+          <article id="exemples">
+            <h3>quelques exemples d'utilisation</h3>
+            <p>Les regex servent à <strong>matcher</strong>
+            une suite précise de caractères dans des string.
+            </p>
 
-          <p>Dans ce tuto on va se concentrer sur
-          la syntaxe des regex elles mêmes, et pas
-          sur leur utilisation. Mais voici <strong>quelques
-          fonctions utiles pour débuter</strong>. A toi de
-          découvrir les autres moyens d'utilisation
-          des regex.</p>
+            <p>Dans ce tuto on va se concentrer sur
+            la syntaxe des regex elles mêmes, et pas
+            sur leur utilisation. Mais voici <strong>quelques
+            fonctions utiles pour débuter</strong>. A toi de
+            découvrir les autres moyens d'utilisation
+            des regex.</p>
 
-          <h5>en Ruby</h5>
-          <pre class="prettyprint linenums">
-"hello my dear".match(/my/)
-  #retourne un objet < matchData >
-  #pratique pour une boucle IF
-  #car "true" si il y a match
-  #et "false" si il n'y a pas match :
+            <h5>en Ruby</h5>
+            <pre class="prettyprint linenums">
+  "hello my dear".match(/my/)
+    #retourne un objet < matchData >
+    #pratique pour une boucle IF
+    #car "true" si il y a match
+    #et "false" si il n'y a pas match :
 
-if string.match(/charlie/)
-  puts "charlie est dans le texte"
-else
-  puts "pas de charlie, cherche encore"
-end
+  if string.match(/charlie/)
+    puts "charlie est dans le texte"
+  else
+    puts "pas de charlie, cherche encore"
+  end
 
-  #une autre fonction utile :
-"salut toi, veux tu monter sur le toit?".scan(/toi/)
-  #renverra un array de toutes les occurences trouvées
-  #soit deux ici : salut "toi", veux tu monter sur le "toi"t
+    #une autre fonction utile :
+  "salut toi, veux tu monter sur le toit?".scan(/toi/)
+    #renverra un array de toutes les occurences trouvées
+    #soit deux ici : salut "toi", veux tu monter sur le "toi"t
 
-  #tu peux utiliser aussi gsub pour remplacer tes matches
-"Adrienne n'aime pas Apollo, Adrienne aime Rocky".gsub(
-  /Adrienne/, "Marcelline")
-          </pre>
+    #tu peux utiliser aussi gsub pour remplacer tes matches
+  "Adrienne n'aime pas Apollo, Adrienne aime Rocky".gsub(
+    /Adrienne/, "Marcelline")
+            </pre>
 
-          <h5>en javascript</h5>
-          <pre class="prettyprint linenums">
-var song = "all the single ladies, all the single ladies";
+            <h5>en javascript</h5>
+            <pre class="prettyprint linenums">
+  var song = "all the single ladies, all the single ladies";
 
-//la méthode string.search renvoie la position du premier match
-song.search(/ladies/); // renvoie 15
+  //la méthode string.search renvoie la position du premier match
+  song.search(/ladies/); // renvoie 15
 
-//la méthode string.replace agit comme .gsub en ruby
-song.replace(/ladies/g,"guys")
-  /*renvoie "all the single guys, all the single guys"
-  il faut mettre le "flag" //g a la fin
-  sinon seul le premier match est valide
-  voir le chapitre sur les flags)*/
+  //la méthode string.replace agit comme .gsub en ruby
+  song.replace(/ladies/g,"guys")
+    /*renvoie "all the single guys, all the single guys"
+    il faut mettre le "flag" //g a la fin
+    sinon seul le premier match est valide
+    voir le chapitre sur les flags)*/
 
-//mais la méthode la plus puissante est .match
-//elle renvoie un object qui contient le match ET sa position
-var match = song.match(/ladies/);
-match[0]; // renvoie "ladies"
-match["index"]; // renvoie 15
-          </pre>
+  //mais la méthode la plus puissante est .match
+  //elle renvoie un object qui contient le match ET sa position
+  var match = song.match(/ladies/);
+  match[0]; // renvoie "ladies"
+  match["index"]; // renvoie 15
+            </pre>
 
-          <p>Tu vas me dire : "hey je peux faire ça sans regex!"
-          mais c'est que j'ai cherché des <strong>mots simples</strong>
-          pour l'exemple. Regex devient puissant quand tu cherches des
-          <strong>combinaisons de caractères</strong></p>
-        </article>
+            <p>Tu vas me dire : "hey je peux faire ça sans regex!"
+            mais c'est que j'ai cherché des <strong>mots simples</strong>
+            pour l'exemple. Regex devient puissant quand tu cherches des
+            <strong>combinaisons de caractères</strong></p>
+          </article>
 
-        <article id="train">
-          <h3>s'entraîner</h3>
-          <p>A partir de maintenant on va travailler la
-          syntaxe regex pure</p>
-          <p>je te conseille d'ouvrir un onglet
-          avec cette page
-          <a href="https://regexr.com/"
-          target="_blank" rel="noopener noreferrer">https://regexr.com/</a>
-          pour t'entrainer a rechercher du texte facilement</p>
-          <h4>Voici un texte d'entrainement</h4>
-          <p>colle le dans la partie basse du site regexr.com
-          pour pouvoir tester différentes regex (des chiffres aux
-          adresses mail)</p>
-          <pre>
-Salut la compagnie,
-THP ( https://www.thehackingproject.org ) c'est bien...   ...mais ça va un peu vite !!
-11 semaines, 55 jours de cours intensif à raison de 2 projets validants et 5 projets en tout
-et ça par semaine, plus les missions et le projet final...et on va prétendre être des "full-stack developpers" ;)
+          <article id="train">
+            <h3>s'entraîner</h3>
+            <p>A partir de maintenant on va travailler la
+            syntaxe regex pure</p>
+            <p>je te conseille d'ouvrir un onglet
+            avec cette page
+            <a href="https://regexr.com/"
+            target="_blank" rel="noopener noreferrer">https://regexr.com/</a>
+            pour t'entrainer a rechercher du texte facilement</p>
+            <h4>Voici un texte d'entrainement</h4>
+            <p>colle le dans la partie basse du site regexr.com
+            pour pouvoir tester différentes regex (des chiffres aux
+            adresses mail)</p>
+            <pre>
+  Salut la compagnie,
+  THP ( https://www.thehackingproject.org ) c'est bien...   ...mais ça va un peu vite !!
+  11 semaines, 55 jours de cours intensif à raison de 2 projets validants et 5 projets en tout
+  et ça par semaine, plus les missions et le projet final...et on va prétendre être des "full-stack developpers" ;)
 
-Si vous avez des réclamations pour Charles ou Félix ou Selma n'hésitez pas a spammer bonjour@thehackingproject.org
-si vous n'aimez pas mon tuto, oubliez mon adresse (guillaume.3.7.13@gmail.com) (de toute façons c'est une boite à spams)
-          </pre>
-        </article>
+  Si vous avez des réclamations pour Charles ou Félix ou Selma n'hésitez pas a spammer bonjour@thehackingproject.org
+  si vous n'aimez pas mon tuto, oubliez mon adresse (guillaume.3.7.13@gmail.com) (de toute façons c'est une boite à spams)
+            </pre>
+          </article>
 
-        <article id="charset">
-          <h3>les [charsets]</h3>
-          <p>Jusque là tout les exemples cherchaient un seul mot simple,
-          tu as compris que pour faire ça en regex, il suffit de taper
-          le mot tel que tu le cherche <code>/mot/</code></p>
+          <article id="charset">
+            <h3>les [charsets]</h3>
+            <p>Jusque là tout les exemples cherchaient un seul mot simple,
+            tu as compris que pour faire ça en regex, il suffit de taper
+            le mot tel que tu le cherche <code>/mot/</code></p>
 
-          <p>Mais la puissance des regex n'est pas dans les mots simples.
-          supposons que tu cherches à isoler les chiffres d'un texte,
-          en regex tu peux utiliser un <strong>charset</strong>
-          pour faire celà </p>
-          <code>/[0123456789]/</code>
+            <p>Mais la puissance des regex n'est pas dans les mots simples.
+            supposons que tu cherches à isoler les chiffres d'un texte,
+            en regex tu peux utiliser un <strong>charset</strong>
+            pour faire celà </p>
+            <code>/[0123456789]/</code>
 
-          <p>le charset recherche <strong>UN</strong> caractère
-          parmis tous les caractères qu'il contient.
-          Ici il y aura match si le caractère est un 0 ou 1 ou 2... jusqu'a 9</p>
+            <p>le charset recherche <strong>UN</strong> caractère
+            parmis tous les caractères qu'il contient.
+            Ici il y aura match si le caractère est un 0 ou 1 ou 2... jusqu'a 9</p>
 
-          <p>l'exemple ci dessus est un peu long a écrire,
-          tu peux le raccourcir en utilisant une <strong>range</strong></p>
-          <code>/[0-9]/</code>
-          <p>cette regex va tester chaque caractère et valider
-          si c'est un nombre entre 0 et 9</p>
-          <p>les ranges marchent aussi pour les lettres</p>
-          <p><code>/[a-z]/</code> pour les minuscules
-            ou <code>/[A-Z]/</code> pour les majuscules</p>
+            <p>l'exemple ci dessus est un peu long a écrire,
+            tu peux le raccourcir en utilisant une <strong>range</strong></p>
+            <code>/[0-9]/</code>
+            <p>cette regex va tester chaque caractère et valider
+            si c'est un nombre entre 0 et 9</p>
+            <p>les ranges marchent aussi pour les lettres</p>
+            <p><code>/[a-z]/</code> pour les minuscules
+              ou <code>/[A-Z]/</code> pour les majuscules</p>
 
-          <div class="rexConsole" id="">
-            <input type="text" name="" value="[0123456789]">
+            <div class="rexConsole" id="">
+              <input type="text" name="" value="[0123456789]">
 
-          </div>
+            </div>
 
-        </article>
+          </article>
 
-
+        </div> <!--textScroller-->
         <footer>
           <a href="https://www.thehackingproject.org">
-            The Hacking Project 
+            The Hacking Project
           </a>
         </footer>
 

@@ -119,6 +119,18 @@ pre, code {
   flex: 1;
   background: #FeFdFc;
   overflow: auto;
+}
+#textScroller {
   padding-left: 3em;
   padding-right: 3em;
+}
+
+footer {
+  height: 5em;
+  width: 100%;
+  background: #EC9;
+  display: grid;
+  grid-template: 1fr 1fr;
+  text-align: center;
+  margin-top: 3em;
 }

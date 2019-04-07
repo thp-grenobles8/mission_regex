@@ -29,9 +29,24 @@
       <nav id="mainNav">
         <h3>CHAPITRES</h3>
         <ul>
-          <li><a href="#">introduction</a></li>
-          <li><a href="#">trouver un mot</a></li>
+          <li><a href="#intro">introduction</a></li>
+          <li><a href="#exemples">exemples</a></li>
           <li><a href="#">trouver des caractères</a></li>
+        </ul>
+        <h3>LIENS utiles</h3>
+        <ul>
+          <p>------ pour <strong>t'entrainer :</strong></p>
+          <li><a href="https://regexr.com/"><strong>Regexr.com</strong></a></li>
+          <p>------ pour approfondir :</p>
+          <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions">
+            la syntaxe</a></li>
+          <li><a href="https://www.honeybadger.io/blog/ruby-regex-tricks/">
+            l'utilisation en ruby</a></li>
+          <p>------ pour communiquer</p>
+          <li><a href="tps://thehackingproject.slack.com">
+            retour au slack</a></li>
+          <li><a href="https://www.thehackingproject.org/dashboard">
+            retour au <strong>dashboard</strong></a></li>
         </ul>
       </nav>
 
@@ -43,11 +58,15 @@
           des <em>expressions régulières</em></h2>
         </header>
 
-        <article>
+        <article id="intro">
           <h3>introduction</h3>
-          <p>Ce petit tutoriel est là pour t'apprendre
+          <p>Ce petit tutoriel est là pour t'apprendre ou t'entraîner
           à utiliser les "<em>expressions régulières</em>"
           aussi appelées <strong>regex</strong> ou regexp.</p>
+
+          <p><strong>On ne verra que les bases,
+          si tu veux approfondir je te donne des liens
+          dans le menu a gauche</strong></p>
 
           <p>Regex n'est pas un langage en soi
           <span>(<a href="#">@Lucien</a> avait raison au final)</span>
@@ -58,16 +77,50 @@
           <p>Dans ces trois langage, la convention veut qu'on écrive
           les regex entre <strong>slashs</strong> comme ça :</p>
           <pre>/bonjour/</pre>
+        </article>
 
-          <p>Les regex servent à </p>
+        <article id="exemples">
+          <h3>quelques exemples d'utilisation</h3>
+          <p>Les regex servent à <strong>matcher</strong>
+          une suite précise de caractères dans des string.
+          Voici quelques rapides exemples d'utilisation
+          dans le contexte ruby ou javascript :
+          </p>
 
-          <h4>quelques exemples d'utilisation :</h4>
+          <h5>en Ruby</h5>
           <pre>
-# en Ruby ------------------
-"hello my dear".match(/my/) #retourne true car "my" est dans la string
-""
+"hello my dear".match(/my/)
+  #retourne un objet < matchData >
+  #pratique pour une boucle IF
+  #car "true" si il y a match
+  #et "false" si il n'y a pas match :
+
+if string.match(/charlie/)
+  puts "charlie est dans le texte"
+else
+  puts "pas de charlie, cherche encore"
+end
+
+  #une autre fonction utile :
+"salut toi, veux tu monter sur le toit?".scan(/toi/)
+  #renverra un array de toutes les occurences trouvées
+  #soit deux ici : salut "toi", veux tu monter sur le "toi"t
+
+  #tu peux utiliser aussi gsub pour remplacer tes matches
+"Adrienne n'aime pas Apollo, Adrienne aime Rocky".gsub(
+  /Adrienne/, "Marcelline")
           </pre>
-          <p></p>
+
+          <h5>en javascript</h5>
+          <pre>
+
+
+          </pre>
+
+          <p>Tu vas me dire : "hey je peux faire ça sans regex!"
+          mais c'est que j'ai cherché des <strong>mots simples</strong>
+          pour l'exemple. Regex devient puissant quand tu cherches des
+          <strong>combinaisons de caractères</strong></p>
         </article>
 
       </div>

@@ -28,6 +28,10 @@ li:before {
   content: "\01F609";
   margin: 0 1em;
 }
+pre li:before { /*pour prettify*/
+  content: "";
+  margin: 0;
+}
 
 a {
   text-decoration: none;
@@ -70,12 +74,20 @@ button:focus {
 }
 
 pre {
+  padding: 1em !important;
+}
+code {
+  display: inline-block;
+  line-height: 1.5em;
+  padding: 0 0.8em !important;
+}
+pre, code {
   overflow: auto;
   box-shadow: inset 2px 2px 3px #468;
-  outline: 1px solid #468;
-  padding: 1em;
-  background: #123;
+  border: 1px solid #468;
+  background-color: #123;
   color: #CCC;
+  font-weight: 400;
 }
 
 

@@ -18,71 +18,60 @@
 
   <body>
 
+    <div id="navButton">
+      <button onclick="d.toggleNav();">
+        <i class="fas fa-bars fa-2x"></i>
+      </button>
+    </div>
 
-    <div id="verticalContainter" class="fullSize fixed1">
+    <div id="mainContainer">
 
       <nav id="mainNav">
-        <button onclick="d.toggle('chapters');">
-          <i class="fas fa-bars fa-2x"></i>
-        </button>
-        hello
+        <h3>CHAPITRES</h3>
+        <ul>
+          <li><a href="#">introduction</a></li>
+          <li><a href="#">trouver un mot</a></li>
+          <li><a href="#">trouver des caractères</a></li>
+        </ul>
       </nav>
 
-      <div id="horizontalContainer">
+      <div id="bodyContainer">
 
-        <nav id="chapters">
-          <h3>CHAPITRES</h3>
-          <ul>
-            <li><a href="#intro">introduction</a></li>
-            <li><a href="#use">utilisation</a></li>
-            <li><a href="#">trouver des caractères</a></li>
-          </ul>
-        </nav>
+        <header>
+          <h1>/REX-REGEX/</h1>
+          <h2>ou comment devenir le <strong>roi</strong>
+          des <em>expressions régulières</em></h2>
+        </header>
 
-        <div id="bodyContainer">
-          <div id="textContainer">
+        <article>
+          <h3>introduction</h3>
+          <p>Ce petit tutoriel est là pour t'apprendre
+          à utiliser les "<em>expressions régulières</em>"
+          aussi appelées <strong>regex</strong> ou regexp.</p>
 
-            <header id="top">
-              <h1>/REX-REGEX/</h1>
-              <h2>ou comment devenir le <strong>roi</strong>
-              des <em>expressions régulières</em></h2>
-            </header>
+          <p>Regex n'est pas un langage en soi
+          <span>(<a href="#">@Lucien</a> avait raison au final)</span>
+          mais une <strong>grammaire</strong>, un ensemble de codes
+          que l'on retrouve dans la pluspart des langages de programmation
+          (<strong>Ruby, Python et Javascript</strong> à minima).</p>
 
-            <article>
-              <h3 id="intro">introduction</h3>
-              <p>Ce petit tutoriel est là pour t'apprendre
-              à utiliser les "<em>expressions régulières</em>"
-              aussi appelées <strong>regex</strong> ou regexp.</p>
+          <p>Dans ces trois langage, la convention veut qu'on écrive
+          les regex entre <strong>slashs</strong> comme ça :</p>
+          <pre>/bonjour/</pre>
 
-              <p>Regex n'est pas un langage en soi
-              <span>(<a href="#">@Lucien</a> avait raison au final)</span>
-              mais une <strong>grammaire</strong>, un ensemble de codes
-              que l'on retrouve dans la pluspart des langages de programmation
-              (<strong>Ruby, Python et Javascript</strong> à minima).</p>
+          <p>Les regex servent à </p>
 
-              <p>Dans ces trois langage, la convention veut qu'on écrive
-              les regex entre <strong>slashs</strong> comme ça :</p>
-              <pre>/bonjour/</pre>
-
-              <h3 id="use">comment les utiliser</h4>
-              <p>Les regex servent à <strong>matcher</strong>
-              des bouts de texte très précis, de manière rapide
-              et efficace.</p>
-
-              <h4>quelques exemples :</h4>
-              <pre>
-    # en Ruby ------------------
-    "hello my dear".match(/my/)
-      #retourne true car "my" est dans la string
-    ""
-              </pre>
-              <p></p>
-            </article>
-
-          </div>
-        </div>
+          <h4>quelques exemples d'utilisation :</h4>
+          <pre>
+# en Ruby ------------------
+"hello my dear".match(/my/) #retourne true car "my" est dans la string
+""
+          </pre>
+          <p></p>
+        </article>
 
       </div>
+
     </div>
 
   </body>

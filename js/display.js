@@ -1,7 +1,7 @@
 
 var d = {
-  toggle: function (el) {
-    let e=document.getElementById(el)
+  toggleNav: function () {
+    let e=document.getElementById("mainNav")
       .style;
     if (e.display == "") {
       e.display="block";

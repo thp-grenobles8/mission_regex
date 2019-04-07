@@ -44,14 +44,14 @@ a:active {
 }
 
 button {
-  margin: 1em;
+  margin: 20px ;
   border : 3px solid #FA7;
   display: flex;
   justify-content: center;
   align-items: center;
-  height : 2.9em;
-  width : 2.9em;
-  border-radius: 1.5em;
+  height : 2.7em;
+  width : 2.7em;
+  border-radius: 1.4em;
   background: rgba(255,255,255,0);
   box-shadow: 1px 1px 1px #FA7;
   color: #FA7;
@@ -69,47 +69,25 @@ button:focus {
   outline: none;
 }
 
-/* classes */
-.fullSize {
-  width: 100%;
-  height: 100%;
-}
-.fixed1 {
+
+/* elements */
+#navButton {
   position: fixed;
   top: 0;
   left: 0;
 }
 
-/* elements */
-#verticalContainer {
+#mainContainer {
+  width: 100%;
+  height: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: flex-start;
   align-items: stretch;
 }
 
 #mainNav {
-  /* position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%; */
-  background: #654;
-  height: 2em;
-  width: 100%;
-  overflow: visible;
-  z-index: 10;
-}
-
-#horizontalContainer {
-  flex: 1;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: stretch;
-  /* padding-top: 4em; /*for button*/
-}
-
-#chapters {
+  padding-top: 1em; /*for button*/
   padding-right: 1em;
   background: #EDC;
   overflow: auto;
@@ -119,10 +97,7 @@ button:focus {
 #bodyContainer {
   flex: 1;
   background: #EFEAE4;
+  overflow: auto;
   padding-left: 3em;
   padding-right: 3em;
-}
-#textContainer {
-  overflow: auto;
-
 }

@@ -1,0 +1,47 @@
+
+
+pre {
+  padding: 1em !important;
+}
+code {
+  display: inline-block;
+  line-height: 1.3em;
+  vertical-align: sub;
+  padding: 0 0.8em !important;
+}
+pre, code {
+  overflow: auto;
+  box-shadow: inset 1px 1px 2px #468;
+  border: 1px solid #468;
+  background-color: #FFF; /*123*/
+  color: #D0A;
+  font-weight: 400;
+  font-size: 1.1em !important;
+}
+
+.rexConsole {
+  width: 100%;
+  padding: 1em;
+  /* display: flex;
+  flex-direction: column;
+  align-items: stretch; */
+  background: #9ab;
+  border-radius: 1em;
+  color: #fff;
+}
+.rexConsole code, .rexConsole pre {
+  font-size: 1.5em;
+  padding: 0;
+}
+.rexConsole span, .rexConsole div {
+  color: #456;
+}
+.rexConsole code {
+  font-size: 1.7em !important;
+  user-select: none;
+}
+.rexConsole div span { /*regex matches*/
+  background: #adb;
+  border-radius: 0.2em;
+  font-weight: bold;
+}

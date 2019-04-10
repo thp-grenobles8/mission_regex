@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta charset="utf-8">
     <title>REX_Regex</title>
 
@@ -11,11 +13,13 @@
     crossorigin="anonymous">
 
     <!-- css -->
-    <link rel="stylesheet"
-    href="./css/style.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/code.css">
 
-    <link rel="stylesheet"
-    href="./css/codePrettifyThemes/desert.css">
+    <link rel="stylesheet" href="./css/codePrettifyThemes/gui3.css">
+
+    <!-- surcouche style -->
+    <link rel="stylesheet" href="">
   </head>
 
 
@@ -35,6 +39,8 @@
           <li><a href="#top">introduction (top)</a></li>
           <li><a href="#exemples">exemples</a></li>
           <li><a href="#charset">[charsets]</a></li>
+          <li><a href="#nb">nombres et ranges</a></li>
+          <li><a href="#shortcuts">raccourcis</a></li>
         </ul>
         <h3>LIENS utiles</h3>
         <ul>
@@ -80,7 +86,6 @@
             dans le menu a gauche</strong></p>
 
             <p>Regex n'est pas un langage en soi
-            <span>(<a href="#">@Lucien</a> avait raison au final)</span>
             mais une <strong>grammaire</strong>, un ensemble de codes
             que l'on retrouve dans la pluspart des langages de programmation
             (<strong>Ruby, Python et Javascript</strong> à minima).</p>
@@ -105,60 +110,200 @@
 
             <h5>en Ruby</h5>
             <pre class="prettyprint linenums">
-  "hello my dear".match(/my/)
-    #retourne un objet < matchData >
-    #pratique pour une boucle IF
-    #car "true" si il y a match
-    #et "false" si il n'y a pas match :
+"hello my dear".match(/my/)
+  #retourne un objet < matchData >
+  #pratique pour une boucle IF
+  #car "true" si il y a match
+  #et "false" si il n'y a pas match :
 
-  if string.match(/charlie/)
-    puts "charlie est dans le texte"
-  else
-    puts "pas de charlie, cherche encore"
-  end
+if string.match(/charlie/)
+  puts "charlie est dans le texte"
+else
+  puts "pas de charlie, cherche encore"
+end
 
-    #une autre fonction utile :
-  "salut toi, veux tu monter sur le toit?".scan(/toi/)
-    #renverra un array de toutes les occurences trouvées
-    #soit deux ici : salut "toi", veux tu monter sur le "toi"t
+  #une autre fonction utile :
+"salut toi, veux tu monter sur le toit?".scan(/toi/)
+  #renverra un array de toutes les occurences trouvées
+  #soit deux ici : salut "toi", veux tu monter sur le "toi"t
 
-    #tu peux utiliser aussi gsub pour remplacer tes matches
-  "Adrienne n'aime pas Apollo, Adrienne aime Rocky".gsub(
-    /Adrienne/, "Marcelline")
+  #tu peux utiliser aussi gsub pour remplacer tes matches
+"Adrienne n'aime pas Apollo, Adrienne aime Rocky".gsub(
+  /Adrienne/, "Marcelline")
             </pre>
 
             <h5>en javascript</h5>
             <pre class="prettyprint linenums">
-  var song = "all the single ladies, all the single ladies";
+var song = "all the single ladies, all the single ladies";
 
   //la méthode string.search renvoie la position du premier match
-  song.search(/ladies/); // renvoie 15
+song.search(/ladies/); // renvoie 15
+
+  //similaire mais plus puissante,
+  //match renvoie un objet avec l'index et la string
+var match = song.match(/ladies/);
+match[0]; // renvoie "ladies"
+match["index"]; // renvoie 15
 
   //la méthode string.replace agit comme .gsub en ruby
-  song.replace(/ladies/g,"guys")
-    /*renvoie "all the single guys, all the single guys"
-    il faut mettre le "flag" //g a la fin
-    sinon seul le premier match est valide
-    voir le chapitre sur les flags)*/
+song.replace(/ladies/g,"guys")
+  /*renvoie "all the single guys, all the single guys"
+  il faut mettre le "flag" //g a la fin
+  sinon seul le premier match est valide
+  voir le chapitre sur les flags)*/
 
-  //mais la méthode la plus puissante est .match
-  //elle renvoie un object qui contient le match ET sa position
-  var match = song.match(/ladies/);
-  match[0]; // renvoie "ladies"
-  match["index"]; // renvoie 15
+  //mais la méthode la plus puissante est .exec
+  //elle renvoie le match + sa position et son groupe
+  //elle s'utilise comme ça
+var regex = /ladies/; //il faut un objet regex
+regex.exec(song); //la methode exec s'appelle depuis la regex
+  //renvoie un objet similaire a celui du match
+  //ici index = 15
+regex.exec(song)
+  //SAUTE sur le prochain match et renvoie un nouvel array
+  //ici index = 38
+regex.exec(song)
+  // comme on a atteint le dernier "ladies"
+  // ici l'objet renvoyé est "null"
+
+  //exec est utile pour faire des boucles while
+  //qui tournent tant qu'on a un match
+  //et qu'il ne faut pas oublier d'arrêter
+  //quand le match est null !!!!!
             </pre>
 
             <p>Tu vas me dire : "hey je peux faire ça sans regex!"
             mais c'est que j'ai cherché des <strong>mots simples</strong>
-            pour l'exemple. Regex devient puissant quand tu cherches des
+            pour l'exemple.</p>
+            <p>Regex devient puissant quand tu cherches des
             <strong>combinaisons de caractères</strong></p>
           </article>
 
+
+
+          <article id="charset">
+            <h3>les [charsets]</h3>
+            <p>Jusque là tout les exemples cherchaient un seul mot simple,
+            tu as compris que pour faire ça en regex, il suffit de taper
+            le mot tel que tu le cherche <code>/mot/</code></p>
+
+            <p>Mais la puissance des regex n'est pas dans les mots simples.
+            Supposons que tu cherches soit "tarte" soit "carte" soit "farte".</p>
+
+            <p>En regex tu pourrais l'écrire comme ça :
+            <code>/tarte|carte|farte/</code> sachant que | est l'opérateur
+            <strong>OU</strong></p>
+
+            <p>Mais une manière plus rapide est d'utiliser un
+            <strong>charset</strong> comme ceci
+            <code>/[ctf]arte/</code> </p>
+
+            <p>Ma dernière regex dit : je cherche soit un c, soit
+              un t, soit un f suivi de "arte"</p>
+
+            <p>Le charset recherche <strong>UN</strong> caractère
+            parmis tous les caractères qu'il contient.</p>
+
+            <p>Tu peux <strong>inverser</strong> un charset
+            comme ceci <code>/[^A0]/</code> : dans ce cas
+            TOUT les charactères a l'exception du A majuscule et du 0
+            matcherons ta regex.</p>
+
+            <div class="rexConsole">
+              <h2>Console de test</h2>
+              <code>/<span contenteditable="true">[ctf]arte</span>/g</code>
+              <pre>
+                <div contenteditable="true" >
+tu peux faire des tests ici
+une tarte à la carte, ça farte !
+essayes d'avoir ces trois là :
+roule le moule en forme de poule
+                </div>
+              </pre>
+            </div>
+
+          </article>
+
+          <article id="nb">
+            <h3>Nombres et ranges</h3>
+            <p><strong>Voyons un exemple concret</strong>,
+            supposons que tu cherches à isoler les chiffres d'un texte,
+            en regex tu peux utiliser un <strong>charset</strong>
+            pour faire celà </p>
+            <code>/[0123456789]/</code>
+
+            <p>Ici il y aura match si le caractère est
+              un 0 ou 1 ou 2... jusqu'a 9, voyez plutot :</p>
+
+            <cite>utilise cette console pour tester tes regex,
+            <strong>n'écris pas les /</strong> contente toi
+            de taper le coeur de ta formule</cite>
+
+            <div class="rexConsole">
+              <h2>Console de test</h2>
+              <code>/<span contenteditable="true">[0123456789]</span>/g</code>
+              <pre>
+                <div contenteditable="true" >
+tu peux faire des tests ici
+cherche les nombres 50 55 42 78 38 45656
+en utilisant les trois manières
+que je vais te montrer
+                </div>
+              </pre>
+            </div>
+
+            <p>l'exemple ci dessus est un peu long a écrire,
+            tu peux le raccourcir en utilisant une <strong>range</strong></p>
+            <code>/[0-9]/</code>
+            <p>cette regex va tester chaque caractère et valider
+            si c'est un nombre entre 0 et 9</p>
+
+            <p>(les ranges marchent aussi pour les lettres</p>
+            <p><code>/[a-z]/</code> pour les minuscules
+              ou <code>/[A-Z]/</code> pour les majuscules)</p>
+
+            <p>Enfin, pour les fainéants, il existe un raccourci :
+            <code>/\d/</code> va chercher directement n'importe quel chiffre (digit) </p>
+
+            <p>Si tu cherches un groupe de deux chiffres, il faudra faire
+            <code>/\d\d/</code> </p>
+
+          </article>
+
+          <article id="shortcuts">
+            <h3>les Raccourcis</h3>
+
+            <p>Certains raccourcis sont très utiles,
+            par exemple <code>/\d/</code> pour les chiffres</p>
+
+            <p>En voici un autre, tu cherche n'importe quel charactère ?
+            tape un point <code>/./</code> et tout les charactères seront pris a l'exception
+            des retours a la ligne. Ce raccourci ne marche pas dans les charsets</p>
+
+            <p>Tu veux les retours à la ligne ? c'est compliqué ...
+            il existe 3 notations :
+            <ul>
+              <li>\r pour "carriage return"</li>
+              <li>\n pour "new line"</li>
+              <li>\r\n dans certains fichiers (sous linus notemment)</li>
+            </ul>
+            si tu veux couvrir les trois cas, il faut faire un petit groupe
+            (je t'apprendrais les groupes plus tard, retiens juste qu'ils sont
+            entre parenthèses)
+            <code>/(\r|\n|\r\n)/</code>
+            </p>
+
+            <p>Un autre raccourci qui a l'air cool sur le papier c'est
+            <code>/\w/</code> pour "word". En effet, il prend n'importe quel caractère
+            .... sauf les accents !!! en francais, on oublie pas de le complêter
+            <code>/[\wéèà...]</code>
+            </p>
+          </article>
+
+
           <article id="train">
             <h3>s'entraîner</h3>
-            <p>A partir de maintenant on va travailler la
-            syntaxe regex pure</p>
-            <p>je te conseille d'ouvrir un onglet
+            <p>Si tu veux t'entrainer, je te conseille d'ouvrir un onglet
             avec cette page
             <a href="https://regexr.com/"
             target="_blank" rel="noopener noreferrer">https://regexr.com/</a>
@@ -178,38 +323,6 @@
             </pre>
           </article>
 
-          <article id="charset">
-            <h3>les [charsets]</h3>
-            <p>Jusque là tout les exemples cherchaient un seul mot simple,
-            tu as compris que pour faire ça en regex, il suffit de taper
-            le mot tel que tu le cherche <code>/mot/</code></p>
-
-            <p>Mais la puissance des regex n'est pas dans les mots simples.
-            supposons que tu cherches à isoler les chiffres d'un texte,
-            en regex tu peux utiliser un <strong>charset</strong>
-            pour faire celà </p>
-            <code>/[0123456789]/</code>
-
-            <p>le charset recherche <strong>UN</strong> caractère
-            parmis tous les caractères qu'il contient.
-            Ici il y aura match si le caractère est un 0 ou 1 ou 2... jusqu'a 9</p>
-
-            <p>l'exemple ci dessus est un peu long a écrire,
-            tu peux le raccourcir en utilisant une <strong>range</strong></p>
-            <code>/[0-9]/</code>
-            <p>cette regex va tester chaque caractère et valider
-            si c'est un nombre entre 0 et 9</p>
-            <p>les ranges marchent aussi pour les lettres</p>
-            <p><code>/[a-z]/</code> pour les minuscules
-              ou <code>/[A-Z]/</code> pour les majuscules</p>
-
-            <div class="rexConsole" id="">
-              <input type="text" name="" value="[0123456789]">
-
-            </div>
-
-          </article>
-
         </div> <!--textScroller-->
         <footer>
           <a href="https://www.thehackingproject.org">
@@ -224,6 +337,7 @@
   </body>
 
   <script type="text/javascript" src="./js/display.js"></script>
+  <script type="text/javascript" src="./js/rexConsole.js"></script>
 
   <!-- code-prettify (google) -->
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>

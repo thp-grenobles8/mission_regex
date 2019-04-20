@@ -19,6 +19,9 @@ h3{
   border-bottom: 2px dotted #F85;
   margin-top: 3em;
 }
+p {
+  padding-top : 1em;
+}
 
 ul {
   list-style: none;
@@ -54,7 +57,7 @@ button {
   justify-content: center;
   align-items: center;
   height : 2.7em;
-  width : 2.7em;
+  /* width : 2.7em; */
   border-radius: 1.4em;
   background: rgba(255,255,255,0);
   box-shadow: 1px 1px 1px #F85;

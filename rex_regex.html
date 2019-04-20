@@ -28,6 +28,7 @@
     <div id="navButton">
       <button onclick="d.toggleNav();">
         <i class="fas fa-bars fa-2x"></i>
+        MENU
       </button>
     </div>
 
@@ -41,6 +42,11 @@
           <li><a href="#charset">[charsets]</a></li>
           <li><a href="#nb">nombres et ranges</a></li>
           <li><a href="#shortcuts">raccourcis</a></li>
+          <li><a href="#quantifiers">quantifiers+</a></li>
+          <li><a href="#groups">(groupes)</a></li>
+          <li><a href="#beginend">^début et fin$</a></li>
+          <li><a href="#flags">/flags/f</a></li>
+          <li><a href="#recap">RECAPITULATIF</a></li>
         </ul>
         <h3>LIENS utiles</h3>
         <ul>
@@ -49,7 +55,7 @@
             href="https://regexr.com/"><strong>Regexr.com</strong></a></li>
           <p>------ pour approfondir :</p>
           <li><a target="_blank" rel="noopener noreferrer"
-            href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions">
+            href="https://www.rexegg.com/regex-quickstart.html">
             la syntaxe</a></li>
           <li><a target="_blank" rel="noopener noreferrer"
             href="https://www.honeybadger.io/blog/ruby-regex-tricks/">
@@ -59,7 +65,7 @@
             en javascript</a></li>
           <p>------ pour communiquer</p>
           <li><a target="_blank" rel="noopener noreferrer"
-            href="tps://thehackingproject.slack.com">
+            href="https://thehackingproject.slack.com">
             retour au slack</a></li>
           <li><a href="https://www.thehackingproject.org/dashboard">
             retour au <strong>dashboard</strong></a></li>
@@ -85,14 +91,25 @@
             si tu veux approfondir je te donne des liens
             dans le menu a gauche</strong></p>
 
+            <p>Ce cours est volontairement <strong>verbeux</strong>,
+              si tu préfères apprendre la syntaxe avec de grands tableaux
+              récapitulatifs, (qui seront bien plus complets que ce cours),
+              je te conseille de te rendre
+            <a href="https://www.rexegg.com/regex-quickstart.html#chars">ICI</a>
+            </p>
+
             <p>Regex n'est pas un langage en soi
             mais une <strong>grammaire</strong>, un ensemble de codes
             que l'on retrouve dans la pluspart des langages de programmation
             (<strong>Ruby, Python et Javascript</strong> à minima).</p>
 
             <p>Dans ces trois langage, la convention veut qu'on écrive
-            les regex entre <strong>slashs</strong> comme ça :
-            <code>/bonjour/</code> </p>
+            les regex entre <strong>slashs</strong> comme ça : <br>
+            <code>/bonjour/f</code> </p>
+
+            <p>Dans l'exemple ci-dessus, bonjour est le mot recherché,
+            les slashs délimitent la regex et le f représente le "flag",
+            une option de recherche (voir le chapitre sur les flags)</p>
           </article>
 
           <article id="exemples">
@@ -171,7 +188,6 @@ regex.exec(song)
   //et qu'il ne faut pas oublier d'arrêter
   //quand le match est null !!!!!
             </pre>
-
             <p>Tu vas me dire : "hey je peux faire ça sans regex!"
             mais c'est que j'ai cherché des <strong>mots simples</strong>
             pour l'exemple.</p>
@@ -209,16 +225,18 @@ regex.exec(song)
             TOUT les charactères a l'exception du A majuscule et du 0
             matcherons ta regex.</p>
 
+            <p>ATTENTION !!! Un charset ne compte que comme
+            UN SEUL caractère. Pour matcher une suite, voir
+            le chapitre sur les <strong>quantifiers</strong>  </p>
+
             <div class="rexConsole">
               <h2>Console de test</h2>
               <code>/<span contenteditable="true">[ctf]arte</span>/g</code>
               <pre>
-                <div contenteditable="true" >
-tu peux faire des tests ici
+<div contenteditable="false" >tu peux faire des tests ici
 une tarte à la carte, ça farte !
 essayes d'avoir ces trois là :
-roule le moule en forme de poule
-                </div>
+roule le moule en forme de poule</div>
               </pre>
             </div>
 
@@ -243,12 +261,10 @@ roule le moule en forme de poule
               <h2>Console de test</h2>
               <code>/<span contenteditable="true">[0123456789]</span>/g</code>
               <pre>
-                <div contenteditable="true" >
-tu peux faire des tests ici
+<div contenteditable="false" >tu peux faire des tests ici
 cherche les nombres 50 55 42 78 38 45656
 en utilisant les trois manières
-que je vais te montrer
-                </div>
+que je vais te montrer</div>
               </pre>
             </div>
 
@@ -298,28 +314,351 @@ que je vais te montrer
             .... sauf les accents !!! en francais, on oublie pas de le complêter
             <code>/[\wéèà...]</code>
             </p>
+
+            <p>Une autre façon d'avoir toutes les lettres, plus efficace,
+            est de chercher les caractères invisibles avec \s
+            (espaces, tabulations, sauts de ligne) et d'inverser
+            avec un charset négatif, souviens toi :
+            <code>/[^\s]/</code>  </p>
+
+
+            <div class="rexConsole">
+              <h2>Console de test</h2>
+              <code>/<span contenteditable="true">\w</span>/g</code>
+              <pre>
+<div contenteditable="false" >tu peux faire des tests ici
+une tarte à la carte, ça farte !
+ici tu vois que toutes les lettres
+sont matchées (sauf les accents)</div>
+              </pre>
+            </div>
+
           </article>
 
+          <article id="quantifiers">
+            <h3>les Quantifiers+</h3>
+            <p>
+              jusque là on a vu comment matcher caractère par caractère,
+              mais tu peux matcher une suite de caractères qui obéissent
+              à la même règle avec les quantifiers.
+            </p>
+
+            <p> Pour matcher UNE ou PLUSIEURES fois la même séquence,
+              tu utilises <strong>+</strong> comme ceci : <br/>
+              <code>/\d+/</code>
+              Ici, la regex va chercher UN ou PLUSIEURS chiffres. <br/>
+              <code>/a+/</code> Ici UNE ou PLUSIEURES fois la lettre a <br/>
+              <code>/[^\s]+/</code> Ici UNE ou PLUSIEURS lettres
+              (hors espaces et sauts de lignes), donc un MOT en ENTIER
+            </p>
+
+
+            <div class="rexConsole">
+              <h2>Console de test</h2>
+              <code>/<span contenteditable="true">[^\s]+</span>/g</code>
+              <pre>
+<div contenteditable="false" >allez
+maintenant, surligne TOUS LES MOTS
+en ENTIER sans séparer les lettres !</div>
+              </pre>
+            </div>
+
+            <p> Un autre quantifier proche est *,
+            il va matcher ZERO ou UN ou PLUSIEURS fois
+             la séquence qui le précède. Seul c'est inutile
+             (ça matchera rien du tout) mais entre deux mots ça peut servir :
+            <code>/Bonjour *Monde/</code> va matcher
+            Bonjour Monde mais aussi BonjourMonde ou
+            Bonjour &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp Monde
+            car l'espace est quatifié avec un *</p>
+
+            <p> Si tu cherches un <strong>nombre précis</strong>
+              d'itération, il faut utiliser des moustaches <br/>
+            <code>/\d{2}/</code> matchera une suite de 2 chiffres <br>
+            <code>/\d{1,4}/</code> matchera entre 1 et 4 chiffres
+            </p>
+
+            <div class="rexConsole">
+              <h2>Console de test</h2>
+              <code>/<span contenteditable="true">\w{2,3}</span>/g</code>
+              <pre>
+<div contenteditable="false" >hello
+je cherche les mots de deux OU trois lettres
+pas plus, pas moins.</div>
+              </pre>
+            </div>
+
+            <p> Ensuite, si tu cherche UNE ou ZERO occurence, tu peux
+            utiliser le quantifier "point d'interrogation"
+            <code>/chameaux?/</code> matchera "chameau" OU chameaux
+            avec un x.</p>
+
+            <p>Quand le point d'interrogation SUIT un autre quantifier,
+            il prend une autre fonction : on dit qu'il rend le quantifier
+            "lazy", c'est à dire que ce dernier matchera le MINIMUM
+            de caractères possibles (par opposition a un "greedy" quantifier
+            qui matche le MAXIMUM de caractères. Par défaut, les quantifiers
+            sont "greedy") <br>
+             <code>/s{2,4}?/</code> matchera 2 caractères au maximum,
+            au lieu des 4 qu'il pourrait prendre sans le point d'interrogation.
+            Cet usage n'est pas très utile ici, mais peut l'être avec
+            des charsets ou des groupes plus complexes.</p>
+
+            <div class="rexConsole">
+              <h2>Console de test</h2>
+              <code>/<span contenteditable="true">b?a?nanas?</span>/g</code>
+              <pre>
+<div contenteditable="false" >Ici les lettres suivies d'un ?
+seront prises mais pas indispensables,
+c'est pourquoi on peut matcher
+banana
+ananas
+nana
+bnana
+(on n'a pas d'exemple pour les "lazy quantifiers")</div>
+              </pre>
+            </div>
+
+          </article>
+
+          <article id="groups">
+            <h3>les (groupes)</h3>
+
+            <p> Les quantifiers n'affectent que la séquence qui les précède,
+            c'est a dire la lettre OU le charset OU le groupe <br/>
+            <code>/hello+/</code> va matcher "hello", "helloooooo"
+            mais pas "hellohello". Pour faire ça il faut passer par un groupe
+            comme ceci <code>/(hello)+/</code> </p>
+
+            <p>Les groupes se notent entre parenthèses, et peuvent
+            contenir des mots, des charsets, des raccourcis
+            et même d'autres groupes.
+            </p>
+
+            <p>Grâce aux groupes combinés aux quantifiers,
+              on peut composer des regex
+            très détaillées et très complexes. Voici un exemple simple.
+            <code></code> </p>
+
+            <div class="rexConsole">
+              <h2>Console de test</h2>
+              <code>/<span contenteditable="true">(tic )+(tac )?BOUM</span>/g</code>
+              <pre>
+<div contenteditable="false" >tic tic tic tac BOUM
+tic tac BOUM
+tac BOUM
+toc tic tac toc BOUM
+toc tic tic BOUM
+tic tic tac BOUM
+tic tic tac </div>
+              </pre>
+            </div>
+
+            <p>Ici on a demandé "UN ou PLUSIEURS tic suivi d'un espace"
+              <code>(tic )+</code> puis "PEUT ETRE tac "
+              <code>(tac )?</code> puis "BOUM"
+            </p>
+
+            <p> <strong>ATTENTION</strong>
+              Les groupes sont <strong>capturants</strong>,
+              ce qui est un peu compliqué a expliquer ...
+              En gros, toute la regex servira a valider un match,
+              mais seul le CONTENU des groupes sera ressorti ...
+              Un exemple en ruby:
+            </p>
+            <pre class="prettyprint linenums">
+regex = /he(ll)o (world)/
+  # une regex avec 2 groupes capturants
+
+"hello world".scan(regex)
+  # renverra [["ll","world"]]
+  # que c'est il passé ?
+  # la regex a bien matché "hello world"
+  # mais seul le CONTENU des groupes
+  # est ressorti dans le résultat
+"ll world".scan(regex)
+  # renverra []
+  # car même si le reste de la regex
+  # n'est pas en capturing group,
+  # il est nécessaire au match
+
+  # pour capturer la totalité de la regex
+  # en gardant ses sous-groupes,
+  # il faut faire un groupe global
+regex = /(he(ll)o (world))/
+"hello world".scan(regex)
+  # renverra [["hello world",   "ll"      ,"world"]]
+  #            groupe global, sous-groupe1, sous-groupe2
+
+  # pourquoi un double array ? car s'il y a plusieurs matches :
+"hello world hello world".scan(regex)
+  # [["hello world","ll","world"], ["hello world","ll","world"]]
+  #  1er match                        2e match
+</pre>
+
+            <p> On peut contourner ce probleme en faisant des
+              <strong>non-capturing group</strong>
+              avec un point d'interrogation et deux points
+              au début :
+              <code>/(?:regex)/</code> <br>
+              De cette manière, le groupe est ignoré lors
+              du renvoi des résultats
+            </p>
+
+            <p>Il existe d'autre options pour jouer avec les groupes
+            comme les <strong>lookahead</strong> et <strong>lookbehind</strong>
+            Mais leur utilisation est complexe et elles ne sont pas
+            valides dans tous les langages (javascript n'a pas de lookbehind).
+            Tu devras demander a google pour plus de renseignements...</p>
+          </article>
+
+          <article id="beginend">
+            <h3>^le début et la fin$</h3>
+
+            <p>Un petit chapitre court sur deux symboles simples</p>
+
+            <p>Si tu commences ta regex pas un chapeau ^, celà indique
+            que tu souhaite matcher seulement au DEBUT du texte</p>
+
+            <p>Si tu la finis par un dollar $, c'est que tu souhaite matcher
+            a la FIN du texte</p>
+
+            <p>... et c'est tout. C'est très pratique par exemple
+            pour tester si une string ne contient QUE la bonne valeur :
+            il suffit d'indiquer que tu veux le début ET la fin <br>
+            <code>/^adresse@mail.fr$/</code> ne matchera que si
+            la string testée contient UNIQUEMENT "adresse@mail.fr"</p>
+
+            <div class="rexConsole">
+              <h2>Console de test</h2>
+              <code>/<span contenteditable="true">^(BLA ?)+|(BLA ?)+$</span>/g</code>
+              <pre>
+<div contenteditable="false" >BLA BLA BLA
+BLA BLA BLA
+ici on prend la premiere ligne ^BLA
+OU |
+la derniere ligne de BLA $
+BLA BLA BLA
+BLA BLA BLA BLA</div>
+              </pre>
+            </div>
+
+          </article>
+
+          <article id="flags">
+            <h3>les /flags/f</h3>
+            <p>On finit le cours en beauté avec les
+              <strong>flags</strong>
+            </p>
+            <p>Tu as sans doute remargé le petit g après chacune
+            des regex des consoles de ce tutoriel ? C'est le flag
+            "global" qui sert a indiquer a javascript qu'il ne faut
+            pas s'arrêter a la premiere occurence, mais scanner
+            TOUT LE TEXTE.</p>
+
+            <p>(On a bien dit en <strong>javascript</strong>
+              car en <strong>ruby</strong> ce flag "g"
+              <strong>n'existe pas</strong>, il est remplacé par
+              la méthode "scan")</p>
+
+            <p>Tu peux découvrir les flags et leur utilité sur google,
+            mais en voici quelques un particulièrement utiles :</p>
+            <p> <code>/chose/g</code> "g" veut dire "global",
+              on en a déjà parlé, il va chercher tous les matches
+              possibles dans la string. NE FONCTIONNE PAS EN RUBY.
+            <p>
+            </p>
+            <code>/machin/i</code> "i" veut dire "case insensitive",
+            tu as compris, dans ce cas les majuscules seront accesptées
+            comme dans MACHIN ou MacHin
+            </p>
+            <p><code>/truc/m</code> "m" veut dire "multiline",
+            celui ci fonctionne comme "global" mais
+            il considère CHAQUE LIGNE comme un nouveau départ
+            (avec un début ^ et une fin $)</p>
+
+          </article>
+
+          <article id="recap">
+            <h3>RECAPITULATIF</h3>
+
+            <p>Allez pour finir, voici un exemple un peu complexe
+             pour chercher un numero de telephone portable français
+            au format 06 65 65 65 65 OU 0665656565 OU +337.32.35.65.45</p>
+
+            <p>essayes de comprendre comment elle fonctionne
+              avant de lire la suite</p>
+
+            <div class="rexConsole">
+              <h2>Console de test</h2>
+              <code>/<span contenteditable="true">(\+33|0033|0)[67][ .]?(\d{2}[ .]?){4}</span>/g</code>
+              <pre>
+<div contenteditable="false" >allez
+maintenant, surligne les numeros de téléphone valides
+06 32 45
+0632818687
+07 525 42 46 24
+07 54 25 65 35
++36 54 57 85 95
++337 54 54 24 54
+00336.32.81.86.87
+</div>
+              </pre>
+            </div>
+
+            <p><strong>EXPLICATION</strong> <br>
+              Décomposons cette regex un peu compliquée
+              <code>(\+33|00|0)[67][ .]?(\d{2}[ .]?){4}</code> <br>
+              On commence par un groupe
+              <code>(\+33|0033|0)</code>
+              Ce groupe dit : je cherche SOIT +33 SOIT 0033 SOIT 0
+              (tu remarquera qu'il faut échapper le + avec un backslash \+)
+              <br>
+              On continue avec le premier chiffre, SOIT un 6 SOIT un 7
+              <code>[67]</code><br>
+              Puis SOIT un espace SOIT un point SOIT rien
+              (avec le quantifier "point d'interrogation")
+              <code>[ .]?</code> <br>
+              (tu remarquera que dans un charset, on n'es pas obligé
+              d'échapper le point \. mais on peut le faire si on est pas sur,
+              ça ne change rien)<br>
+              Ensuite je cherche un nouveau groupe
+              qui sera mes paires de chiffres
+              <code>(\d{2}[ .]?){4}</code>
+              Ici, on cherche un chiffre \d, DEUX FOIS {2}
+              suivis d'un espace OU un point OU rien [ .]?,
+              et TOUT CA (entre parenthèses) 4 fois {4} <br>
+            </p>
+
+            <p>Voilà, ce dernier exemple peut te montrer la puissance
+            des regex. Ces dernières ne sont pas infaillibles
+            (il est par exemple reconnu qu'il est impossible de parser
+            du HTML avec des regex) mais elles sont un outil INDISPENSABLE
+            pour manipuler du texte.</p>
+
+          </article>
 
           <article id="train">
             <h3>s'entraîner</h3>
-            <p>Si tu veux t'entrainer, je te conseille d'ouvrir un onglet
-            avec cette page
+            <p>Si tu veux t'entrainer, je te conseille de te rendre
+              sur cette page
             <a href="https://regexr.com/"
             target="_blank" rel="noopener noreferrer">https://regexr.com/</a>
             pour t'entrainer a rechercher du texte facilement</p>
             <h4>Voici un texte d'entrainement</h4>
             <p>colle le dans la partie basse du site regexr.com
-            pour pouvoir tester différentes regex (des chiffres aux
-            adresses mail)</p>
-            <pre>
-  Salut la compagnie,
-  THP ( https://www.thehackingproject.org ) c'est bien...   ...mais ça va un peu vite !!
-  11 semaines, 55 jours de cours intensif à raison de 2 projets validants et 5 projets en tout
-  et ça par semaine, plus les missions et le projet final...et on va prétendre être des "full-stack developpers" ;)
+            pour pouvoir tester différentes regex</p>
 
-  Si vous avez des réclamations pour Charles ou Félix ou Selma n'hésitez pas a spammer bonjour@thehackingproject.org
-  si vous n'aimez pas mon tuto, oubliez mon adresse (guillaume.3.7.13@gmail.com) (de toute façons c'est une boite à spams)
+            <p>essayes par exemple de matcher TOUTES les adresses mail,
+            ou les DEUX adresses HTTP avec UNE seule regex</p>
+            <pre>
+Salut la compagnie, (texte a coller sur https://regexr.com/ )
+THP ( https://www.thehackingproject.org ) c'est bien...   ...mais ça va un peu vite !!
+11 semaines, 55 jours de cours intensif à raison de 2 projets validants et 5 projets en tout
+et ça par semaine, plus les missions et le projet final...et on va prétendre être des "full-stack developpers" ;)
+
+Si vous avez des réclamations pour Charles ou Félix ou Selma n'hésitez pas a spammer bonjour@thehackingproject.org
+si vous n'aimez pas mon tuto, oubliez mon adresse (guillaume.3.7.13@gmail.com) (de toute façons c'est une boite à spams)
             </pre>
           </article>
 

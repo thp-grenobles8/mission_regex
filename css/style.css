@@ -106,8 +106,13 @@ button:focus {
   flex: 1;
   background: #FeFdFc;
   overflow: auto;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
 }
 #textScroller {
+  max-width: 600px;
   padding-left: 3em;
   padding-right: 3em;
 }

@@ -24,5 +24,8 @@ code {
   background: #233;
 }
 .rexConsole span {
-  color: #EFF !important; 
+  color: #EFF !important;
+}
+.rexConsole div span { /*regex matches*/
+  color: #456 !important;
 }

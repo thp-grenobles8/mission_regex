@@ -23,3 +23,6 @@ code {
   color: #ACC;
   background: #233;
 }
+.rexConsole span {
+  color: #EFF !important; 
+}
